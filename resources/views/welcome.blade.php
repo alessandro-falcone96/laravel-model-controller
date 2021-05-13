@@ -11,8 +11,26 @@
 
         <!-- Styles -->
         <style>
-            li{
-                list-style-type: none;
+            body{
+                background-color: rgb(65, 125, 255);
+            }
+            td{
+                background-color: rgb(39, 216, 172);
+                /* border: 1px solid rgb(39, 216, 172); */
+                text-align: center;
+                color:dark blue;
+            }
+            td:nth-child(1){
+                width: 15%;
+            }
+            td:nth-child(2){
+                width: 5%;
+            }
+            td:nth-child(3){
+                width: 15%;
+            }
+            td:nth-child(4){
+                width: 10%;
             }
         </style>
     </head>
@@ -33,16 +51,32 @@
             @endif
 
             <div class="content">
-                <ul>
+                {{-- <ul>
                     @foreach ($movies as $movie)
                         <li>
                             <h2>{{$movie->title}}</h2>
-                            <h4>{{$movie->author}}</h4>
+                            <h4>{{$movie->duration}}</h4>
+                            <h4>{{$movie->director}}</h4>
                             <h6>{{$movie->genre}}</h6>
                             <p>{{$movie->plot}}</p>
                         </li>
                     @endforeach
-                </ul>
+                </ul> --}}
+
+                <table>
+                    
+                    @foreach ($movies as $movie)
+                        <tr>
+                            <td><h2>{{$movie->title}}</h2></td>
+                            <td><h4>{{$movie->duration}}</h4></td>
+                            <td><h4>{{$movie->director}}</h4></td>
+                            <td><h5>{{$movie->genre}}</h5></td>
+                            <td><p>{{$movie->plot}}</p></td>
+                        </tr>
+                    @endforeach
+
+                </table>
+
             </div>
         </div>
     </body>
