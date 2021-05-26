@@ -11,73 +11,52 @@
 
         <!-- Styles -->
         <style>
-            body{
-                background-color: rgb(65, 125, 255);
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
-            td{
-                background-color: rgb(39, 216, 172);
-                /* border: 1px solid rgb(39, 216, 172); */
-                text-align: center;
-                color:dark blue;
-            }
-            td:nth-child(1){
-                width: 15%;
-            }
-            td:nth-child(2){
-                width: 5%;
-            }
-            td:nth-child(3){
-                width: 15%;
-            }
-            td:nth-child(4){
-                width: 10%;
+            div{
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                {{-- <ul>
-                    @foreach ($movies as $movie)
-                        <li>
-                            <h2>{{$movie->title}}</h2>
-                            <h4>{{$movie->duration}}</h4>
-                            <h4>{{$movie->director}}</h4>
-                            <h6>{{$movie->genre}}</h6>
-                            <p>{{$movie->plot}}</p>
-                        </li>
-                    @endforeach
-                </ul> --}}
-
-                <table>
-                    
-                    @foreach ($movies as $movie)
-                        <tr>
-                            <td><h2>{{$movie->title}}</h2></td>
-                            <td><h4>{{$movie->duration}}</h4></td>
-                            <td><h4>{{$movie->director}}</h4></td>
-                            <td><h5>{{$movie->genre}}</h5></td>
-                            <td><p>{{$movie->plot}}</p></td>
-                        </tr>
-                    @endforeach
-
-                </table>
-
+        <div class="content">
+            <div id="app">
+                <ul>
+                    <li v-for="film in films">
+                        <h3>@{{film.title}}</h3>
+                    </li>
+                </ul>
             </div>
         </div>
+
+
+        {{-- AXIOS --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{-- VUE JS --}}
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    films: []
+                },
+                mounted: function() {
+                    axios.get('/api/movies')
+                    .then((response) => {
+                        this.films = response.data;
+                        // console.log(this.films);
+                    });
+                }
+            })
+        </script>
+
     </body>
 </html>
